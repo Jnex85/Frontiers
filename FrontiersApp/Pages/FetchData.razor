@@ -9,6 +9,23 @@
 
 <p>Frontiers registered users</p>
 
+@{
+    var showClass = IsVisible ? "d-block" : "d-none";
+}
+
+<div class="toast-container p-3 @showClass" data-bs-autohide="true" data-bs-delay="5000">
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">@HeaderText</strong>
+            <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
+        </div>
+
+        <div class="toast-body">
+            @BodyText
+        </div>
+    </div>
+</div>
+
 @if (users == null)
 {
     <p><em>Loading...</em></p>
@@ -44,7 +61,7 @@ else
 
 @code {
     private UserModel[] users;
-
+  
     protected override async Task OnInitializedAsync()
     {
         users = await UserService.GetRegisteredUsersAsync();
@@ -52,12 +69,42 @@ else
 
     private async Task OpenForm(int id)
     {
-        await Task.Run(async () => await UserService.InviteReviewer(id) );
-        NevigateToYourUrl();
+        var result = await UserService.InviteReviewer(id);
+        Show(result, "Reviewer");
+        NavigateToYourUrl();
     }
 
-    void NevigateToYourUrl()
+    void NavigateToYourUrl()
     {
         _navigationManager.NavigateTo("/fetchdata", true);
+    }
+
+
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    [Parameter]
+    public string? HeaderText { get; set; }
+
+    [Parameter]
+    public string? BodyText { get; set; }
+
+    public void Show(string bodyText, string headerText = "")
+    {
+        HeaderText = headerText;
+        BodyText = bodyText;
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        HeaderText = string.Empty;
+        BodyText = string.Empty;
+        IsVisible = false;
+        StateHasChanged();
     }
 }
