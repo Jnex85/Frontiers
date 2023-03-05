@@ -1,17 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace Api.Models
+namespace FrontiersApp.Data
 {
-    public class User
+    public class UserModel
     {
         public int Id { get; set; }
-        [Required]
         public string UserName { get; set; }
-        [Required]
         public int NumberOfPublications { get; set; }
-        [Required]
         public string UniversityName { get; set; }
-        [Required]
         public bool Reviewer { get; set; }
     }
 }

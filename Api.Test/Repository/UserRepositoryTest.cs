@@ -205,6 +205,28 @@ namespace Api.Test.Repository
 
         #endregion
 
+        #region SetUserAsReviewerAsync
+
+        [Fact]
+        public async Task SetUserAsReviewerAsync_Should_ReturnUser()
+        {
+            //arrange
+            var userRepository = new UserRepository(GetContextWithInMemoryProvider());
+            var user = UserFixture.GetUser();
+            user.Id = 1;
+            await userRepository.AddUserAsync(user.UserName, user.UniversityName, user.NumberOfPublications);
+
+            //act
+            var result = await userRepository.SetUserAsReviewerAsync(user.Id);
+
+            //assert
+            result.Id.Should().Be(user.Id);
+            result.UserName.Should().Be(user.UserName);
+            result.Reviewer.Should().BeTrue();
+            result.NumberOfPublications.Should().Be(user.NumberOfPublications);
+        }
+
+        #endregion
 
         private static UserDBContext GetContextWithInMemoryProvider()
         {

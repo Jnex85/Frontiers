@@ -31,7 +31,12 @@ namespace Api.Services
 
             var university = await _userRepository.GetUniversityByNameAsync(user.UniversityName);
 
-            return university != null && university.Score >= 60 && user.NumberOfPublications > 3;
+            var isReviewer = university != null && university.Score >= 60 && user.NumberOfPublications > 3;
+            if(isReviewer)
+            {
+                await _userRepository.SetUserAsReviewerAsync(userId);
+            }
+            return isReviewer;
         }
 
         public async Task<User> RegisterUserAsync(RegisterUserInput registerUser)

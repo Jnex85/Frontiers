@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Repository
@@ -7,6 +8,7 @@ namespace Api.Repository
     {
         Task<List<User>> GetUsersAsync();
         Task<User> AddUserAsync(string userName, string universityName, int numberOfPublications);
+        Task<User> SetUserAsReviewerAsync(int id);
         Task<User> GetUserByIdAsync(int id);
         Task<User> GetUserByUserNameAsync(string userName);
         Task<University> GetUniversityByNameAsync(string universityName);
@@ -84,6 +86,14 @@ namespace Api.Repository
         private async Task<int> GetNextUniversityId()
         {
             return await _dbContext.Universities.CountAsync() + 1;
+        }
+
+        public async Task<User> SetUserAsReviewerAsync(int id)
+        {
+            var user = await _dbContext.Users.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+            user.Reviewer = true;
+            var result = await _dbContext.Users.AddAsync(user);
+            return result.Entity;
         }
     }
 }

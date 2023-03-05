@@ -24,7 +24,10 @@ namespace Api
 
             var app = builder.Build();
 
-            InitializeDbData(app.Services.GetService<UserDBContext>());
+            using (var scope = app.Services.CreateScope())
+            {
+                InitializeDbData(scope.ServiceProvider.GetRequiredService<UserDBContext>());
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -65,6 +68,7 @@ namespace Api
             };
 
             userDBContext.Universities.Add(university);
+            userDBContext.SaveChanges();
 
             for (int i = 1; i <= numberOfUsers; i++)
             {
@@ -73,10 +77,12 @@ namespace Api
                     Id = i,
                     NumberOfPublications = Helpers.Helpers.GenerateRandomNumber(10),
                     UserName = Helpers.Helpers.GenerateRandomString(),
-                    UniversityName = universityName
+                    UniversityName = universityName,
+                    Reviewer = false
                 };
 
                 userDBContext.Users.Add(user);
+                userDBContext.SaveChanges();
 
                 if (universityNameCounter > 5)
                 {
@@ -91,6 +97,7 @@ namespace Api
                     };
 
                     userDBContext.Universities.Add(university);
+                    userDBContext.SaveChanges();
                 }
                 else
                 {
