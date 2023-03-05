@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>3a4bee0f-8be0-44b7-9ec5-bd897ac9417b</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+	<TargetFramework>net7.0</TargetFramework>
+	<Nullable>disable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<UserSecretsId>3a4bee0f-8be0-44b7-9ec5-bd897ac9417b</UserSecretsId>
+	<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+	<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	<DockerfileRunArguments>-p 5000:5000 --network=my-data-network</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
+	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
   </ItemGroup>
 
 </Project>

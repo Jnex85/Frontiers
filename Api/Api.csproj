@@ -6,7 +6,7 @@
 	<ImplicitUsings>enable</ImplicitUsings>
 	<UserSecretsId>6297877f-e970-494a-926d-8fdf7f8091da</UserSecretsId>
 	<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-	<DockerfileRunArguments>-p "4040:443" -p "5050:80"</DockerfileRunArguments>
+	<DockerfileRunArguments>-p 8088:80 --network=my-data-network</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>

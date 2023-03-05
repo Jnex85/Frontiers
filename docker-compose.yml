@@ -1,0 +1,29 @@
+version: '3.4'
+
+networks:
+  my-data-network:
+    driver: nat
+
+services:
+  api:
+    image: data-provider
+    container_name: 'data-provider'
+    build:
+      context: .
+      dockerfile: Api\Dockerfile
+    ports:
+        - 8088:80
+    networks:
+        - my-data-network
+
+  frontiersapp:
+    image: ${DOCKER_REGISTRY-}frontiersapp
+    build:
+      context: .
+      dockerfile: FrontiersApp\Dockerfile
+    ports:
+        - 5000:5000
+        - 5001:5001
+    networks:
+        - my-data-network
+        
