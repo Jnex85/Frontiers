@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{A52050AC-6A9C-4109-94C4-95216448CBF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Test", "Api.Test\Api.Test.csproj", "{17D53E58-F9F5-4BF1-AEF6-13B93977728F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Test", "Api.Test\Api.Test.csproj", "{17D53E58-F9F5-4BF1-AEF6-13B93977728F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontiersApp", "FrontiersApp\FrontiersApp.csproj", "{2AA5C248-533D-4BC3-959B-091E2DD45B26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{17D53E58-F9F5-4BF1-AEF6-13B93977728F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17D53E58-F9F5-4BF1-AEF6-13B93977728F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17D53E58-F9F5-4BF1-AEF6-13B93977728F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AA5C248-533D-4BC3-959B-091E2DD45B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA5C248-533D-4BC3-959B-091E2DD45B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA5C248-533D-4BC3-959B-091E2DD45B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA5C248-533D-4BC3-959B-091E2DD45B26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

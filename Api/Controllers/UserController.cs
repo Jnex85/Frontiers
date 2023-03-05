@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
 
@@ -18,6 +18,8 @@ namespace Api.Controllers
         }
 
         [HttpGet(Name = "GetUsers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUsersAsync()
         {
             var users = await _usersService.GetAllUsersAsync();
@@ -31,6 +33,10 @@ namespace Api.Controllers
         }
 
         [HttpPut(Name = "RegisterUser")]
+        [Route("api/User/RegisterUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> PutRegisterUserAsync(RegisterUserInput registerUser)
         {
             try
@@ -54,6 +60,10 @@ namespace Api.Controllers
         }
 
         [HttpPut(Name = "InviteReviewer")]
+        [Route("api/User/InviteReviewer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> PutInviteReviewerAsync(int userId)
         {
             try

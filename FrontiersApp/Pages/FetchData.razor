@@ -1,0 +1,63 @@
+﻿@page "/fetchdata"
+@using FrontiersApp.Data
+@inject NavigationManager _navigationManager
+@inject UserService UserService
+
+<PageTitle>Frontiers App</PageTitle>
+
+<h1>Users</h1>
+
+<p>Frontiers registered users</p>
+
+@if (users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Pubblications</th>
+                <th>University</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.NumberOfPublications</td>
+                    <td>@user.UniversityName</td>
+                    <td>@user.Reviewer</td>
+                    @if(!user.Reviewer)
+                    {
+                        <td><button class="btn btn-primary" onclick="@OpenForm(user.Id);">Click me</button></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private UserModel[] users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await UserService.GetRegisteredUsersAsync();
+    }
+
+    private async Task OpenForm(int id)
+    {
+        await Task.Run(async () => await UserService.InviteReviewer(id) );
+        NevigateToYourUrl();
+    }
+
+    void NevigateToYourUrl()
+    {
+        _navigationManager.NavigateTo("/fetchdata", true);
+    }
+}

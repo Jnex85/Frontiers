@@ -58,6 +58,7 @@ namespace Api.Test.Controllers
             var mockUserRepository = new Mock<IUserRepository>();
             var returnedUser = UserFixture.GetUser();
             returnedUser.NumberOfPublications = 4;
+            returnedUser.Reviewer = true;
             var returnedUniversity = UserFixture.GetUniversity();
             returnedUniversity.Name = returnedUser.UniversityName;
             returnedUniversity.Score = 60;
@@ -69,12 +70,17 @@ namespace Api.Test.Controllers
                 .Setup(repo => repo.GetUniversityByNameAsync(returnedUniversity.Name))
                 .ReturnsAsync(returnedUniversity);
 
+            mockUserRepository
+                .Setup(repo => repo.SetUserAsReviewerAsync(returnedUser.Id))
+                .ReturnsAsync(returnedUser);
+
             //act
             var sut = new UserService(mockUserRepository.Object);
             var result = await sut.InviteReviewerAsyncAsync(returnedUser.Id);
 
             //assert
             result.Should().BeTrue();
+            mockUserRepository.Verify(v => v.SetUserAsReviewerAsync(It.IsAny<int>()));
         }
 
         [Fact]
